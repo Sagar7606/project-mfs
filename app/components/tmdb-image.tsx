@@ -27,7 +27,7 @@ export function TmdbImage({
       <div
         aria-label={alt}
         role="img"
-        className={`flex h-full w-full items-center justify-center bg-[#17191c] px-4 text-center text-[10px] tracking-[0.12em] text-[#74777a] ${className}`}
+        className={`flex h-full w-full items-center justify-center bg-panel px-4 text-center text-[10px] tracking-[0.12em] text-muted ${className}`}
       >
         IMAGE UNAVAILABLE
       </div>

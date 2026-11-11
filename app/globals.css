@@ -2,13 +2,68 @@
 
 :root {
   color-scheme: dark;
-  --background: #0b0c0e;
-  --foreground: #eeece8;
+  --background: #0b0b0b;
+  --surface: #151515;
+  --panel: #1c1c1c;
+  --foreground: #f5f2ec;
+  --text-secondary: #a5a5a5;
+  --text-muted: #a5a5a5;
+  --accent: #ff6b24;
+  --accent-hover: #ff8547;
+  --accent-foreground: #ff8547;
+  --border: rgba(245, 242, 236, 0.12);
+  --border-subtle: rgba(245, 242, 236, 0.08);
+  --border-strong: rgba(245, 242, 236, 0.2);
+  --control-surface: #171717;
+  --skeleton: rgba(245, 242, 236, 0.06);
+  --warning: #c5b9aa;
+  --inverse-foreground: #f5f2ec;
+  --inverse-secondary: #d3d1cd;
+  --cinematic: #0b0b0b;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --background: #f7f1e7;
+  --surface: #fff9f0;
+  --panel: #ffffff;
+  --foreground: #211c18;
+  --text-secondary: #756c62;
+  --text-muted: #6f655b;
+  --accent: #ff6b24;
+  --accent-hover: #e85a18;
+  --accent-foreground: #a83e0d;
+  --border: #e7dccb;
+  --border-subtle: #e7dccb;
+  --border-strong: #d8cbb8;
+  --control-surface: #fff9f0;
+  --skeleton: #eee5d8;
+  --warning: #9b411e;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-panel: var(--panel);
   --color-foreground: var(--foreground);
+  --color-secondary: var(--text-secondary);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-control-surface: var(--control-surface);
+  --color-skeleton: var(--skeleton);
+  --color-warning: var(--warning);
+  --color-inverse: var(--inverse-foreground);
+  --color-inverse-secondary: var(--inverse-secondary);
+  --color-cinematic: var(--cinematic);
+  --color-avatar-amara: #7d594d;
+  --color-avatar-theo: #566b68;
+  --color-avatar-priya: #725e83;
+  --color-avatar-maya: #52575d;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -17,15 +72,82 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
 }
 
-html {
-  scroll-behavior: smooth;
+.cinematic-gradient-left {
+  background: linear-gradient(
+    90deg,
+    rgba(7, 8, 10, 0.94) 0%,
+    rgba(7, 8, 10, 0.76) 38%,
+    rgba(7, 8, 10, 0.12) 100%
+  );
+}
+
+.cinematic-gradient-bottom {
+  background: linear-gradient(
+    0deg,
+    var(--cinematic) 0%,
+    rgba(11, 11, 11, 0.12) 42%,
+    rgba(11, 11, 11, 0.18) 100%
+  );
+}
+
+html[data-theme="light"] .cinematic-surface [class~="text-foreground"] {
+  color: var(--inverse-foreground);
+}
+
+html[data-theme="light"] .cinematic-surface [class~="text-secondary"],
+html[data-theme="light"] .cinematic-surface [class~="text-muted"] {
+  color: var(--inverse-secondary);
+}
+
+html[data-theme="dark"] .theme-light-icon,
+html[data-theme="dark"] .theme-light-label,
+html[data-theme="dark"] .theme-action-dark,
+html[data-theme="light"] .theme-dark-icon,
+html[data-theme="light"] .theme-dark-label,
+html[data-theme="light"] .theme-action-light {
+  display: none;
+}
+
+button[aria-current="location"],
+button[aria-pressed="true"] {
+  color: var(--accent-foreground);
+}
+
+:where(
+  [class~="bg-background"],
+  [class~="bg-background/95"],
+  [class~="bg-surface"],
+  [class~="bg-panel"],
+  [class~="bg-control-surface"],
+  [class~="bg-skeleton"],
+  [class~="text-foreground"],
+  [class~="text-secondary"],
+  [class~="text-muted"],
+  [class~="text-accent-foreground"],
+  [class~="text-inverse"],
+  [class~="text-inverse-secondary"],
+  [class~="border-border"],
+  [class~="border-border-subtle"],
+  [class~="border-border-strong"]
+) {
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
 }
 
 .animate-cinema-reveal {
@@ -60,6 +182,6 @@ html {
 }
 
 ::selection {
-  background: #e8e1d7;
-  color: #111111;
+  background: var(--accent);
+  color: #0b0b0b;
 }

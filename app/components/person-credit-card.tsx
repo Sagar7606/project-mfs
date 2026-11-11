@@ -17,9 +17,9 @@ export function PersonCreditCard({
   return (
     <Link
       href={`/people/${id}`}
-      className="group flex min-w-0 items-center gap-3 border-t border-white/[0.1] py-3 transition-colors hover:bg-white/[0.025] focus-visible:outline focus-visible:outline-1 focus-visible:outline-white"
+      className="group flex min-w-0 items-center gap-3 border-t border-border-subtle py-3 transition-colors hover:bg-control-surface focus-visible:outline focus-visible:outline-1 focus-visible:outline-accent"
     >
-      <div className="relative h-[70px] w-[56px] shrink-0 overflow-hidden bg-[#17191c]">
+      <div className="relative h-[70px] w-[56px] shrink-0 overflow-hidden bg-panel">
         <TmdbImage
           path={profilePath}
           kind="profile"
@@ -28,10 +28,10 @@ export function PersonCreditCard({
         />
       </div>
       <span className="min-w-0">
-        <span className="block truncate text-sm text-[#e9e7e2] group-hover:text-white">
+        <span className="block truncate text-sm text-foreground group-hover:text-accent-foreground">
           {name}
         </span>
-        <span className="mt-1 block line-clamp-2 text-[10px] leading-4 text-[#85878a]">
+        <span className="mt-1 block line-clamp-2 text-[10px] leading-4 text-muted">
           {detail}
         </span>
       </span>

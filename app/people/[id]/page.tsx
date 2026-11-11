@@ -96,8 +96,8 @@ async function PersonPageContent({
   return (
     <CinemaPageFrame>
       <main className="mx-auto max-w-[1240px] px-4 py-10 sm:px-7 sm:py-14 lg:px-10">
-        <section className="grid gap-8 border-b border-white/[0.12] pb-10 sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-10 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-14">
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden bg-[#17191c] sm:mx-0">
+        <section className="grid gap-8 border-b border-border-subtle pb-10 sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-10 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-14">
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden bg-panel sm:mx-0">
             <TmdbImage
               path={person.profile_path}
               kind="profile"
@@ -106,29 +106,29 @@ async function PersonPageContent({
             />
           </div>
           <div className="flex min-w-0 flex-col justify-end">
-            <p className="text-[9px] tracking-[0.2em] text-[#85878a]">
+            <p className="text-[9px] tracking-[0.2em] text-muted">
               TMDB PERSON PROFILE
             </p>
-            <h1 className="mt-3 font-serif text-4xl leading-tight tracking-[-0.035em] text-[#f0efec] sm:text-5xl lg:text-6xl">
+            <h1 className="mt-3 font-serif text-4xl leading-tight tracking-[-0.035em] text-foreground sm:text-5xl lg:text-6xl">
               {person.name}
             </h1>
-            <p className="mt-3 text-[10px] tracking-[0.14em] text-[#aaa8a3]">
+            <p className="mt-3 text-[10px] tracking-[0.14em] text-secondary">
               {person.known_for_department || "Department not listed"}
             </p>
-            <dl className="mt-7 grid gap-5 border-y border-white/[0.12] py-5 sm:grid-cols-2">
+            <dl className="mt-7 grid gap-5 border-y border-border-subtle py-5 sm:grid-cols-2">
               <div>
-                <dt className="text-[9px] tracking-[0.14em] text-[#77797c]">
+                <dt className="text-[9px] tracking-[0.14em] text-muted">
                   BORN
                 </dt>
-                <dd className="mt-1 text-xs text-[#e3e1dc]">
+                <dd className="mt-1 text-xs text-foreground">
                   {formatDate(person.birthday)}
                 </dd>
               </div>
               <div>
-                <dt className="text-[9px] tracking-[0.14em] text-[#77797c]">
+                <dt className="text-[9px] tracking-[0.14em] text-muted">
                   PLACE OF BIRTH
                 </dt>
-                <dd className="mt-1 text-xs text-[#e3e1dc]">
+                <dd className="mt-1 text-xs text-foreground">
                   {person.place_of_birth || "Not listed"}
                 </dd>
               </div>
@@ -136,11 +136,11 @@ async function PersonPageContent({
             <section aria-labelledby="person-biography-heading" className="mt-7">
               <h2
                 id="person-biography-heading"
-                className="text-[9px] tracking-[0.18em] text-[#85878a]"
+                className="text-[9px] tracking-[0.18em] text-muted"
               >
                 BIOGRAPHY
               </h2>
-              <p className="mt-3 whitespace-pre-line text-sm leading-7 text-[#b1b1b1]">
+              <p className="mt-3 whitespace-pre-line text-sm leading-7 text-secondary">
                 {person.biography || "TMDB does not list a biography for this person."}
               </p>
             </section>
@@ -148,12 +148,12 @@ async function PersonPageContent({
         </section>
 
         <section aria-labelledby="person-filmography-heading" className="pt-10">
-          <p className="text-[9px] tracking-[0.2em] text-[#85878a]">
+          <p className="text-[9px] tracking-[0.2em] text-muted">
             SELECTED CREDITS
           </p>
           <h2
             id="person-filmography-heading"
-            className="mt-2 font-serif text-3xl text-[#f0efec] sm:text-4xl"
+            className="mt-2 font-serif text-3xl text-foreground sm:text-4xl"
           >
             Filmography
           </h2>
@@ -178,14 +178,14 @@ async function PersonPageContent({
                     showOverview
                     layout="grid"
                   />
-                  <p className="mt-2 line-clamp-2 text-[10px] text-[#85878a]">
+                  <p className="mt-2 line-clamp-2 text-[10px] text-muted">
                     {filmographyRole(entry)}
                   </p>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="mt-6 border-t border-white/[0.12] py-8 text-sm text-[#929497]">
+            <p className="mt-6 border-t border-border-subtle py-8 text-sm text-muted">
               TMDB has no movie credits listed for this person.
             </p>
           )}

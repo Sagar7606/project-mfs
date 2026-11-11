@@ -144,9 +144,9 @@ function LoadingRail() {
           key={index}
           className="w-[148px] shrink-0 animate-pulse sm:w-[172px]"
         >
-          <div className="aspect-[2/3] bg-white/[0.06]" />
-          <div className="mt-3 h-4 w-4/5 bg-white/[0.06]" />
-          <div className="mt-2 h-3 w-1/2 bg-white/[0.04]" />
+          <div className="aspect-[2/3] bg-skeleton" />
+          <div className="mt-3 h-4 w-4/5 bg-skeleton" />
+          <div className="mt-2 h-3 w-1/2 bg-skeleton" />
         </div>
       ))}
     </div>
@@ -171,11 +171,11 @@ function MovieRail({
   return (
     <section
       aria-labelledby={`movie-${collection}-heading`}
-      className="border-t border-white/[0.12] py-8 sm:py-10"
+      className="border-t border-border-subtle py-8 sm:py-10"
     >
       <div className="mb-5 flex items-end justify-between gap-5">
         <div>
-          <p className="mb-2 text-[9px] tracking-[0.2em] text-[#77797c]">
+          <p className="mb-2 text-[9px] tracking-[0.2em] text-muted">
             {collection === "recommended"
               ? "INSPIRED BY A TRENDING FILM"
               : collection === "trending"
@@ -186,7 +186,7 @@ function MovieRail({
           </p>
           <h3
             id={`movie-${collection}-heading`}
-            className="font-serif text-2xl tracking-[-0.03em] text-[#efede9] sm:text-3xl"
+            className="font-serif text-2xl tracking-[-0.03em] text-foreground sm:text-3xl"
           >
             {heading}
           </h3>
@@ -196,7 +196,7 @@ function MovieRail({
             type="button"
             onClick={onLoadMore}
             disabled={state.loadingMore}
-            className="shrink-0 border-b border-white/30 pb-1.5 text-[10px] text-[#d3d1cd] transition hover:border-white hover:text-white disabled:opacity-50"
+            className="shrink-0 border-b border-border pb-1.5 text-[10px] text-secondary transition hover:border-accent-hover hover:text-accent-foreground disabled:opacity-50"
           >
             {state.loadingMore ? "Loading…" : "Load more"}
           </button>
@@ -206,11 +206,11 @@ function MovieRail({
       {state.loading && !state.data ? (
         <LoadingRail />
       ) : state.error && !state.data ? (
-        <p role="alert" className="py-8 text-sm text-[#b8b2a9]">
+        <p role="alert" className="py-8 text-sm text-warning">
           {state.error}
         </p>
       ) : movies.length === 0 ? (
-        <p className="py-8 text-sm text-[#929497]">
+        <p className="py-8 text-sm text-muted">
           No movies were returned for this collection.
         </p>
       ) : (
@@ -224,11 +224,11 @@ function MovieRail({
               />
             ))}
             {state.loadingMore && (
-              <div className="w-[148px] shrink-0 animate-pulse bg-white/[0.04] sm:w-[172px]" />
+              <div className="w-[148px] shrink-0 animate-pulse bg-skeleton sm:w-[172px]" />
             )}
           </div>
           {state.error && (
-            <p role="alert" className="mt-2 text-xs text-[#b8b2a9]">
+            <p role="alert" className="mt-2 text-xs text-warning">
               {state.error}
             </p>
           )}
@@ -604,23 +604,23 @@ export function MovieDiscovery() {
     <section
       id="movies"
       aria-labelledby="movie-discovery-heading"
-      className="scroll-mt-32 border-y border-white/[0.08] bg-[#0e1012]"
+      className="scroll-mt-32 border-y border-border-subtle bg-surface"
     >
       <div className="mx-auto max-w-[1240px] overflow-hidden px-4 py-12 sm:px-7 sm:py-16 lg:px-10 lg:py-20">
         <div className="pb-8">
           <div className="max-w-3xl">
-            <p className="mb-4 text-[9px] tracking-[0.22em] text-[#85878a]">
-              01 <span className="px-2 text-white/30">/</span> FILM DISCOVERY
+            <p className="mb-4 text-[9px] tracking-[0.22em] text-muted">
+              01 <span className="px-2 text-muted">/</span> FILM DISCOVERY
             </p>
             <h2
               id="movie-discovery-heading"
-              className="font-serif text-4xl leading-[1.08] tracking-[-0.04em] text-[#f0efec] sm:text-5xl"
+              className="font-serif text-4xl leading-[1.08] tracking-[-0.04em] text-foreground sm:text-5xl"
             >
               Find a film.
               <br />
-              <span className="italic text-[#a9aaac]">Follow the story.</span>
+              <span className="italic text-secondary">Follow the story.</span>
             </h2>
-            <p className="mt-4 max-w-xl text-sm leading-6 text-[#929497]">
+            <p className="mt-4 max-w-xl text-sm leading-6 text-muted">
               Search by title, follow what’s moving, or take an unexpected turn
               through the catalog.
             </p>
@@ -629,7 +629,7 @@ export function MovieDiscovery() {
         <form
           role="search"
           onSubmit={submitSearch}
-          className="mb-8 flex min-h-14 w-full max-w-[760px] items-center gap-3 border border-white/20 bg-white/[0.035] px-4 transition focus-within:border-white/50 sm:px-5"
+          className="mb-8 flex min-h-14 w-full max-w-[760px] items-center gap-3 border border-border bg-control-surface px-4 transition focus-within:border-border-strong sm:px-5"
         >
           <svg
             aria-hidden="true"
@@ -637,7 +637,7 @@ export function MovieDiscovery() {
             fill="none"
             stroke="currentColor"
             strokeWidth="1.5"
-            className="h-5 w-5 shrink-0 text-[#a4a4a2]"
+            className="h-5 w-5 shrink-0 text-secondary"
           >
             <circle cx="10.8" cy="10.8" r="6.8" />
             <path d="m16 16 4 4" />
@@ -651,21 +651,21 @@ export function MovieDiscovery() {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search a film by title..."
-            className="min-w-0 flex-1 bg-transparent py-3 text-sm text-white outline-none placeholder:text-[#77797c]"
+            className="min-w-0 flex-1 bg-transparent py-3 text-sm text-foreground outline-none placeholder:text-muted"
           />
           {query && (
             <button
               type="button"
               onClick={clearSearch}
               aria-label="Clear movie search"
-              className="text-[10px] text-[#a2a3a5] hover:text-white"
+              className="text-[10px] text-secondary hover:text-accent-foreground"
             >
               Clear
             </button>
           )}
           <button
             type="submit"
-            className="border-l border-white/15 py-2 pl-4 text-[10px] tracking-[0.12em] text-[#e2e0dc] transition hover:text-white"
+            className="border-l border-border py-2 pl-4 text-[10px] tracking-[0.12em] text-foreground transition hover:text-accent-foreground"
           >
             SEARCH FILMS
           </button>
@@ -674,14 +674,14 @@ export function MovieDiscovery() {
         {configurationError && (
           <div
             role="alert"
-            className="mb-8 border-l border-white/35 bg-white/[0.025] px-4 py-3 text-xs leading-5 text-[#c5c1ba]"
+            className="mb-8 border-l border-border bg-control-surface px-4 py-3 text-xs leading-5 text-secondary"
           >
             {configurationError}
           </div>
         )}
 
         {search.error && !configurationError && (
-          <p role="alert" className="mb-5 text-xs text-[#c5b9aa]">
+          <p role="alert" className="mb-5 text-xs text-warning">
             {search.error}
           </p>
         )}
@@ -689,16 +689,16 @@ export function MovieDiscovery() {
         {searchTerm && (
           <section
             aria-labelledby="movie-search-results-heading"
-            className="mb-10 border-y border-white/[0.12] py-7"
+            className="mb-10 border-y border-border-subtle py-7"
           >
             <div className="mb-5 flex items-end justify-between gap-4">
               <div>
-                <p className="mb-2 text-[9px] tracking-[0.18em] text-[#77797c]">
+                <p className="mb-2 text-[9px] tracking-[0.18em] text-muted">
                   TMDB TITLE SEARCH
                 </p>
                 <h3
                   id="movie-search-results-heading"
-                  className="font-serif text-2xl text-[#efede9]"
+                  className="font-serif text-2xl text-foreground"
                 >
                   Results for “{searchTerm}”
                 </h3>
@@ -724,14 +724,14 @@ export function MovieDiscovery() {
                     type="button"
                     onClick={loadMoreSearch}
                     disabled={search.loadingMore}
-                    className="mt-8 border-b border-white/30 pb-1.5 text-[10px] text-[#d3d1cd] hover:border-white disabled:opacity-50"
+                    className="mt-8 border-b border-border pb-1.5 text-[10px] text-secondary hover:border-accent-hover disabled:opacity-50"
                   >
                     {search.loadingMore ? "Loading…" : "Load more results"}
                   </button>
                 )}
               </>
             ) : !search.loading ? (
-              <p className="py-8 text-sm text-[#929497]">
+              <p className="py-8 text-sm text-muted">
                 No titles matched that search. Try another spelling or title.
               </p>
             ) : null}
@@ -742,7 +742,7 @@ export function MovieDiscovery() {
           <Link
             href={`/movies/${featured.id}`}
             aria-label={`Explore ${featured.title}, currently trending on TMDB`}
-            className="group relative mb-10 flex min-h-[260px] items-end overflow-hidden bg-[#17191c] sm:min-h-[340px]"
+            className="cinematic-surface group relative mb-10 flex min-h-[260px] items-end overflow-hidden bg-panel sm:min-h-[340px]"
           >
             <TmdbImage
               path={featured.backdrop_path}
@@ -753,19 +753,19 @@ export function MovieDiscovery() {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/35 to-transparent" />
             <div className="relative z-10 max-w-2xl p-6 sm:p-9">
-              <p className="text-[9px] tracking-[0.2em] text-white/70">
+              <p className="text-[9px] tracking-[0.2em] text-inverse-secondary">
                 IN THE CONVERSATION · TMDB TRENDING
               </p>
-              <h3 className="mt-3 font-serif text-3xl text-white sm:text-5xl">
+              <h3 className="mt-3 font-serif text-3xl text-inverse sm:text-5xl">
                 {featured.title}
               </h3>
-              <p className="mt-2 text-[10px] tracking-[0.14em] text-white/70">
+              <p className="mt-2 text-[10px] tracking-[0.14em] text-inverse-secondary">
                 {displayYear(featured.release_date)}
                 {featured.vote_count > 0 && (
                   <span> · {featured.vote_average.toFixed(1)} TMDB</span>
                 )}
               </p>
-              <span className="mt-5 inline-flex items-center gap-2 border-b border-white/50 pb-1 text-[10px] text-white">
+              <span className="mt-5 inline-flex items-center gap-2 border-b border-border-strong pb-1 text-[10px] text-inverse">
                 Open film notes <span aria-hidden="true">→</span>
               </span>
             </div>
@@ -773,14 +773,14 @@ export function MovieDiscovery() {
         )}
 
         <div className="mb-5 flex items-center justify-between gap-5">
-          <p className="text-[9px] tracking-[0.18em] text-[#77797c]">
+          <p className="text-[9px] tracking-[0.18em] text-muted">
             MOVIE DATA AND IMAGES PROVIDED BY TMDB
           </p>
           <a
             href="https://www.themoviedb.org/"
             target="_blank"
             rel="noreferrer"
-            className="text-[9px] text-[#85878a] underline decoration-white/20 underline-offset-4 hover:text-white"
+            className="text-[9px] text-muted underline decoration-border underline-offset-4 hover:text-accent-foreground"
           >
             About TMDB
           </a>
@@ -806,20 +806,20 @@ export function MovieDiscovery() {
         <section
           id="film-exploration"
           aria-labelledby="film-exploration-heading"
-          className="mt-12 border-t border-white/[0.12] py-10 sm:py-12"
+          className="mt-12 border-t border-border-subtle py-10 sm:py-12"
         >
           <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
             <div>
-              <p className="text-[9px] tracking-[0.2em] text-[#85878a]">
+              <p className="text-[9px] tracking-[0.2em] text-muted">
                 ADVANCED EXPLORATION · IN DEVELOPMENT
               </p>
               <h3
                 id="film-exploration-heading"
-                className="mt-3 max-w-xl font-serif text-3xl leading-tight text-[#f0efec] sm:text-4xl"
+                className="mt-3 max-w-xl font-serif text-3xl leading-tight text-foreground sm:text-4xl"
               >
                 Discover films through the people and choices behind them.
               </h3>
-              <p className="mt-3 max-w-xl text-xs leading-5 text-[#929497]">
+              <p className="mt-3 max-w-xl text-xs leading-5 text-muted">
                 These filters are not active yet. Combined crew roles and
                 advanced AND/OR groups require additional server-side data
                 retrieval.
@@ -827,7 +827,7 @@ export function MovieDiscovery() {
             </div>
             <ul
               aria-label="Planned film filters"
-              className="flex flex-wrap gap-2 text-[10px] text-[#c2c0bb]"
+              className="flex flex-wrap gap-2 text-[10px] text-secondary"
             >
               {[
                 "Directors",
@@ -844,7 +844,7 @@ export function MovieDiscovery() {
               ].map((filter) => (
                 <li
                   key={filter}
-                  className="border border-white/15 px-3 py-2"
+                  className="border border-border px-3 py-2"
                 >
                   {filter}
                 </li>

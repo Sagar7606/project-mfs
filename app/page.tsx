@@ -5,6 +5,7 @@ import { CinematicImage } from "./components/cinematic-image";
 import { CreatorPortrait } from "./components/creator-portrait";
 import { Logo } from "./components/logo";
 import { MovieDiscovery } from "./components/movie-discovery";
+import { ThemeToggle } from "./components/theme-toggle";
 
 type IconName =
   | "search"
@@ -51,7 +52,7 @@ const initialPosts: Post[] = [
     id: 1,
     name: "Amara Okafor",
     initials: "AO",
-    avatar: "bg-[#7d594d]",
+    avatar: "bg-avatar-amara",
     role: "Director · Lagos",
     time: "18 min ago",
     topic: "SCENE BREAKDOWN",
@@ -68,7 +69,7 @@ const initialPosts: Post[] = [
     id: 2,
     name: "Theo Bennett",
     initials: "TB",
-    avatar: "bg-[#566b68]",
+    avatar: "bg-avatar-theo",
     role: "Editor · London",
     time: "1 hr ago",
     topic: "EDITING NOTES",
@@ -85,7 +86,7 @@ const initialPosts: Post[] = [
     id: 3,
     name: "Priya Nair",
     initials: "PN",
-    avatar: "bg-[#725e83]",
+    avatar: "bg-avatar-priya",
     role: "Screenwriter · Mumbai",
     time: "3 hrs ago",
     topic: "WRITING FROM THE FRAME",
@@ -252,7 +253,7 @@ function Avatar({ initials, color }: { initials: string; color: string }) {
   return (
     <span
       aria-hidden="true"
-      className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-semibold text-white ring-1 ring-white/15 ${color}`}
+      className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-semibold text-inverse ring-1 ring-border ${color}`}
     >
       {initials}
     </span>
@@ -293,14 +294,14 @@ function PostCard({
   return (
     <article
       id={`post-${post.id}`}
-      className={`grid gap-5 border-t border-white/[0.12] py-7 sm:gap-8 ${
+      className={`grid gap-5 border-t border-border-subtle py-7 sm:gap-8 ${
         featured
           ? "lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:py-10"
           : "md:grid-cols-[minmax(190px,0.7fr)_minmax(0,1.3fr)]"
       }`}
     >
       <div
-        className={`group relative isolate overflow-hidden bg-[#181a1d] ${
+        className={`group relative isolate overflow-hidden bg-panel ${
           featured ? "aspect-[1.38] sm:aspect-[1.55]" : "aspect-[16/10]"
         }`}
       >
@@ -310,10 +311,10 @@ function PostCard({
           className="transition-transform duration-700 group-hover:scale-[1.035]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
-        <span className="absolute bottom-4 left-4 text-[9px] font-medium tracking-[0.2em] text-white/85">
+        <span className="absolute bottom-4 left-4 text-[9px] font-medium tracking-[0.2em] text-inverse-secondary">
           {post.topic}
         </span>
-        <span className="absolute right-4 top-4 text-[10px] tracking-[0.18em] text-white/60">
+        <span className="absolute right-4 top-4 text-[10px] tracking-[0.18em] text-inverse-secondary">
           F / {String(post.id).padStart(2, "0")}
         </span>
       </div>
@@ -322,11 +323,11 @@ function PostCard({
         <div className="flex items-center gap-3">
           <Avatar initials={post.initials} color={post.avatar} />
           <div className="min-w-0 flex-1">
-            <p className="truncate text-xs font-medium text-[#eeece8]">
+            <p className="truncate text-xs font-medium text-foreground">
               {post.name}
             </p>
-            <p className="mt-1 truncate text-[10px] text-[#85878a]">
-              {post.role} <span className="px-1 text-[#57595d]">·</span>{" "}
+            <p className="mt-1 truncate text-[10px] text-muted">
+              {post.role} <span className="px-1 text-muted">·</span>{" "}
               {post.time}
             </p>
           </div>
@@ -335,8 +336,8 @@ function PostCard({
             aria-label={`${saved ? "Remove saved" : "Save"} ${post.name}'s post`}
             aria-pressed={saved}
             onClick={onSave}
-            className={`p-2 transition hover:text-white ${
-              saved ? "text-[#f4f0e9]" : "text-[#85878a]"
+            className={`p-2 transition hover:text-accent-foreground ${
+              saved ? "text-foreground" : "text-muted"
             }`}
           >
             <Icon name="bookmark" size={16} />
@@ -344,7 +345,7 @@ function PostCard({
         </div>
 
         <h3
-          className={`mt-5 font-serif leading-[1.15] tracking-[-0.025em] text-[#f3f1ed] ${
+          className={`mt-5 font-serif leading-[1.15] tracking-[-0.025em] text-foreground ${
             featured
               ? "text-[27px] sm:text-[34px]"
               : "text-[23px] sm:text-[26px]"
@@ -352,18 +353,18 @@ function PostCard({
         >
           {post.title}
         </h3>
-        <p className="mt-3 max-w-2xl text-[13px] leading-6 text-[#a2a3a5]">
+        <p className="mt-3 max-w-2xl text-[13px] leading-6 text-secondary">
           {post.body}
         </p>
 
-        <div className="mt-5 flex items-center gap-5 border-t border-white/[0.08] pt-3">
+        <div className="mt-5 flex items-center gap-5 border-t border-border-subtle pt-3">
           <button
             type="button"
             aria-label={`${liked ? "Unlike" : "Like"} post`}
             aria-pressed={liked}
             onClick={onLike}
             className={`inline-flex items-center gap-2 text-[11px] transition ${
-              liked ? "text-[#e7a19a]" : "text-[#85878a] hover:text-[#e7a19a]"
+              liked ? "text-accent-foreground" : "text-muted hover:text-accent-foreground"
             }`}
           >
             <Icon name="heart" size={15} />
@@ -373,25 +374,25 @@ function PostCard({
             type="button"
             aria-expanded={commentsOpen}
             onClick={onToggleComments}
-            className="inline-flex items-center gap-2 text-[11px] text-[#85878a] transition hover:text-white"
+            className="inline-flex items-center gap-2 text-[11px] text-muted transition hover:text-accent-foreground"
           >
             <Icon name="message" size={15} />
             {post.comments} replies
           </button>
-          <span className="ml-auto text-[9px] tracking-[0.15em] text-[#696b6e]">
+          <span className="ml-auto text-[9px] tracking-[0.15em] text-muted">
             {post.discussion ? "OPEN DISCUSSION" : "FIELD NOTE"}
           </span>
         </div>
 
         {commentsOpen && (
-          <div className="mt-4 border-l border-white/15 pl-4">
-            <p className="text-[11px] leading-5 text-[#8f9193]">
+          <div className="mt-4 border-l border-border pl-4">
+            <p className="text-[11px] leading-5 text-muted">
               Join the conversation with a thoughtful reply.
             </p>
             {post.replies?.map((reply, index) => (
               <p
                 key={`${post.id}-${index}`}
-                className="mt-3 text-xs leading-5 text-[#d0cfcc]"
+                className="mt-3 text-xs leading-5 text-secondary"
               >
                 {reply}
               </p>
@@ -405,12 +406,12 @@ function PostCard({
                 value={comment}
                 onChange={(event) => setComment(event.target.value)}
                 placeholder="Add to the conversation..."
-                className="min-w-0 flex-1 border-b border-white/15 bg-transparent py-2 text-xs text-white outline-none placeholder:text-[#686a6d] focus:border-white/55"
+                className="min-w-0 flex-1 border-b border-border bg-transparent py-2 text-xs text-foreground outline-none placeholder:text-muted focus:border-accent-hover"
               />
               <button
                 type="submit"
                 disabled={!comment.trim()}
-                className="text-xs text-[#e2ded7] transition hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                className="text-xs text-foreground transition hover:text-accent-foreground disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Reply
               </button>
@@ -493,7 +494,7 @@ export default function Home() {
         id: Date.now(),
         name: "Maya Chen",
         initials: "MC",
-        avatar: "bg-[#52575d]",
+        avatar: "bg-avatar-maya",
         role: "Filmmaker in progress",
         time: "Just now",
         topic: "COMMUNITY NOTE",
@@ -554,8 +555,8 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0b0c0e] text-[#eeece8]">
-      <header className="sticky top-0 z-30 border-b border-white/[0.08] bg-[#0b0c0e]/95 backdrop-blur-xl">
+    <div className="min-h-screen bg-background text-foreground">
+      <header className="sticky top-0 z-30 border-b border-border-subtle bg-background/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between gap-5 px-4 sm:px-7 lg:px-10">
           <a
             href="#home"
@@ -586,8 +587,8 @@ export default function Home() {
                 onClick={() => navigate(item.label, item.target)}
                 className={`text-[11px] transition ${
                   activeNav === item.label
-                    ? "text-white"
-                    : "text-[#8b8d90] hover:text-white"
+                    ? "text-foreground"
+                    : "text-muted hover:text-accent-foreground"
                 }`}
               >
                 {item.label}
@@ -596,32 +597,33 @@ export default function Home() {
           </nav>
 
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <label className="relative hidden w-[190px] lg:block">
               <span className="sr-only">Search the community</span>
               <Icon
                 name="search"
                 size={15}
-                className="absolute left-0 top-1/2 -translate-y-1/2 text-[#77797c]"
+                className="absolute left-0 top-1/2 -translate-y-1/2 text-muted"
               />
               <input
                 value={query}
                 onChange={(event) => searchPosts(event.target.value)}
                 placeholder="Search the conversation"
-                className="h-9 w-full border-b border-white/15 bg-transparent pl-6 pr-2 text-[11px] text-white outline-none placeholder:text-[#6f7174] focus:border-white/60"
+                className="h-9 w-full border-b border-border bg-transparent pl-6 pr-2 text-[11px] text-foreground outline-none placeholder:text-muted focus:border-accent-hover"
               />
             </label>
             <button
               type="button"
               onClick={() => setMobileSearchOpen((open) => !open)}
               aria-label={mobileSearchOpen ? "Close search" : "Search"}
-              className="p-2 text-[#a1a2a4] transition hover:text-white lg:hidden"
+              className="p-2 text-secondary transition hover:text-accent-foreground lg:hidden"
             >
               <Icon name={mobileSearchOpen ? "close" : "search"} size={18} />
             </button>
             <button
               type="button"
               onClick={() => setComposerOpen(true)}
-              className="hidden items-center gap-2 border-b border-white/45 py-2 text-[11px] text-[#e5e2dc] transition hover:border-white hover:text-white sm:flex"
+              className="hidden items-center gap-2 border-b border-border-strong py-2 text-[11px] text-foreground transition hover:border-accent-hover hover:text-accent-foreground sm:flex"
             >
               <Icon name="plus" size={15} />
               Share a thought
@@ -630,7 +632,7 @@ export default function Home() {
               type="button"
               aria-label="Share a thought"
               onClick={() => setComposerOpen(true)}
-              className="flex h-9 w-9 items-center justify-center text-[#e5e2dc] transition hover:text-white sm:hidden"
+              className="flex h-9 w-9 items-center justify-center text-foreground transition hover:text-accent-foreground sm:hidden"
             >
               <Icon name="plus" size={19} />
             </button>
@@ -639,7 +641,7 @@ export default function Home() {
 
         <nav
           aria-label="Mobile navigation"
-          className="flex gap-6 overflow-x-auto border-t border-white/[0.06] px-4 py-3 text-[11px] xl:hidden sm:px-7 lg:px-10"
+          className="flex gap-6 overflow-x-auto border-t border-border-subtle px-4 py-3 text-[11px] xl:hidden sm:px-7 lg:px-10"
         >
           {navItems.map((item) => (
             <button
@@ -649,8 +651,8 @@ export default function Home() {
               onClick={() => navigate(item.label, item.target)}
               className={`shrink-0 transition ${
                 activeNav === item.label
-                  ? "text-white"
-                  : "text-[#8b8d90] hover:text-white"
+                  ? "text-foreground"
+                  : "text-muted hover:text-accent-foreground"
               }`}
             >
               {item.label}
@@ -659,20 +661,20 @@ export default function Home() {
         </nav>
 
         {mobileSearchOpen && (
-          <div className="border-t border-white/[0.06] px-4 py-3 lg:hidden">
+          <div className="border-t border-border-subtle px-4 py-3 lg:hidden">
             <label className="relative block">
               <span className="sr-only">Search the community</span>
               <Icon
                 name="search"
                 size={15}
-                className="absolute left-0 top-1/2 -translate-y-1/2 text-[#77797c]"
+                className="absolute left-0 top-1/2 -translate-y-1/2 text-muted"
               />
               <input
                 autoFocus
                 value={query}
                 onChange={(event) => searchPosts(event.target.value)}
                 placeholder="Search ideas, people, films..."
-                className="h-9 w-full border-b border-white/15 bg-transparent pl-6 pr-2 text-xs text-white outline-none placeholder:text-[#6f7174] focus:border-white/60"
+                className="h-9 w-full border-b border-border bg-transparent pl-6 pr-2 text-xs text-foreground outline-none placeholder:text-muted focus:border-accent-hover"
               />
             </label>
           </div>
@@ -683,7 +685,7 @@ export default function Home() {
         <section
           id="home"
           aria-labelledby="hero-heading"
-          className="relative isolate flex min-h-[380px] scroll-mt-32 items-end overflow-hidden border-b border-white/[0.08] sm:min-h-[450px] lg:min-h-[min(500px,60vh)]"
+          className="cinematic-surface relative isolate flex min-h-[380px] scroll-mt-32 items-end overflow-hidden border-b border-border-subtle sm:min-h-[450px] lg:min-h-[min(500px,60vh)]"
         >
           <CinematicImage
             src="/fellas-cinematic-hero.svg"
@@ -691,23 +693,23 @@ export default function Home() {
             className="z-0 object-[62%_center]"
             preload
           />
-          <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(7,8,10,0.94)_0%,rgba(7,8,10,0.76)_38%,rgba(7,8,10,0.12)_100%)]" />
-          <div className="absolute inset-0 z-10 bg-[linear-gradient(0deg,#0b0c0e_0%,rgba(11,12,14,0.12)_42%,rgba(11,12,14,0.18)_100%)]" />
+          <div className="absolute inset-0 z-10 cinematic-gradient-left" />
+          <div className="absolute inset-0 z-10 cinematic-gradient-bottom" />
 
           <div className="relative z-20 mx-auto w-full max-w-[1440px] px-4 pb-8 pt-20 sm:px-7 sm:pb-12 lg:px-10 lg:pb-14">
             <div className="max-w-[760px] animate-cinema-reveal">
-              <p className="mb-5 text-[10px] font-medium tracking-[0.24em] text-[#d1d1cf]">
+              <p className="mb-5 text-[10px] font-medium tracking-[0.24em] text-secondary">
                 FELLAS PRESENTS · A WORLD IN EVERY FRAME
               </p>
               <h1
                 id="hero-heading"
-                className="font-serif text-[clamp(3rem,7vw,6.4rem)] leading-[0.94] tracking-[-0.055em] text-[#f2f0eb]"
+                className="font-serif text-[clamp(3rem,7vw,6.4rem)] leading-[0.94] tracking-[-0.055em] text-foreground"
               >
                 Explore the
                 <br />
-                <span className="italic text-[#c9c7c2]">world of cinema.</span>
+                <span className="italic text-secondary">world of cinema.</span>
               </h1>
-              <p className="mt-5 max-w-lg text-sm leading-7 text-[#c0c1c2] sm:text-base">
+              <p className="mt-5 max-w-lg text-sm leading-7 text-secondary sm:text-base">
                 Discover films. Explore the minds behind them. Find your next
                 obsession.
               </p>
@@ -715,7 +717,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => navigate("Films", "movies")}
-                  className="group inline-flex items-center gap-3 border-b border-white/70 pb-2 text-xs font-medium text-white transition hover:border-white"
+                  className="group inline-flex items-center gap-3 border-b border-border-strong pb-2 text-xs font-medium text-inverse transition hover:border-accent-hover"
                 >
                   Explore films
                   <Icon
@@ -727,18 +729,18 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => navigate("Creators", "creators")}
-                  className="text-xs text-[#b8b9bb] transition hover:text-white"
+                  className="text-xs text-secondary transition hover:text-accent-foreground"
                 >
                   Meet the creators
                 </button>
               </div>
             </div>
-            <p className="mt-10 text-[9px] tracking-[0.2em] text-white/50 sm:mt-12">
-              FELLAS <span className="px-2 text-white/25">/</span> MEET. CREATE.
+            <p className="mt-10 text-[9px] tracking-[0.2em] text-inverse-secondary sm:mt-12">
+              FELLAS <span className="px-2 text-inverse-secondary">/</span> MEET. CREATE.
               COLLABORATE.
             </p>
           </div>
-          <div className="pointer-events-none absolute bottom-16 right-8 z-20 hidden text-right text-[9px] leading-5 tracking-[0.16em] text-white/55 lg:block">
+          <div className="pointer-events-none absolute bottom-16 right-8 z-20 hidden text-right text-[9px] leading-5 tracking-[0.16em] text-inverse-secondary lg:block">
             WATCH CLOSER · THINK DEEPER
             <br />
             35° 41&apos; 22&quot; N — SOMEWHERE IN BETWEEN
@@ -755,21 +757,21 @@ export default function Home() {
           <div className="mx-auto max-w-[1240px] px-4 py-20 sm:px-7 sm:py-24 lg:px-10">
             <div className="grid gap-8 pb-9 md:grid-cols-[1fr_auto] md:items-end">
               <div className="max-w-3xl">
-                <p className="mb-4 text-[9px] tracking-[0.22em] text-[#85878a]">
-                  02 <span className="px-2 text-white/30">/</span> OPEN
+                <p className="mb-4 text-[9px] tracking-[0.22em] text-muted">
+                  02 <span className="px-2 text-muted">/</span> OPEN
                   CONVERSATIONS
                 </p>
                 <h2
                   id="community-heading"
-                  className="font-serif text-4xl leading-[1.08] tracking-[-0.04em] text-[#f0efec] sm:text-5xl"
+                  className="font-serif text-4xl leading-[1.08] tracking-[-0.04em] text-foreground sm:text-5xl"
                 >
                   The scene ends.
                   <br />
-                  <span className="italic text-[#a9aaac]">
+                  <span className="italic text-secondary">
                     The conversation doesn&apos;t.
                   </span>
                 </h2>
-                <p className="mt-4 max-w-xl text-sm leading-6 text-[#929497]">
+                <p className="mt-4 max-w-xl text-sm leading-6 text-muted">
                   A place for the details you noticed, the questions you kept,
                   and the ideas that grew after the credits.
                 </p>
@@ -778,7 +780,7 @@ export default function Home() {
                 type="button"
                 id="collaborate"
                 onClick={() => setComposerOpen(true)}
-                className="group inline-flex items-center gap-3 justify-self-start border-b border-white/30 pb-2 text-xs text-[#e7e5df] transition hover:border-white md:justify-self-end"
+                className="group inline-flex items-center gap-3 justify-self-start border-b border-border pb-2 text-xs text-foreground transition hover:border-accent-hover md:justify-self-end"
               >
                 Start a conversation
                 <Icon
@@ -789,22 +791,23 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-4 border-y border-white/[0.12] py-3">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-y border-border-subtle py-3">
               <div className="flex items-center gap-5 sm:gap-7">
                 {["For you", "Following", "Discussions"].map((tab) => (
                   <button
                     key={tab}
                     type="button"
+                    aria-pressed={feedTab === tab}
                     onClick={() => setFeedTab(tab)}
                     className={`relative py-1 text-[11px] transition ${
                       feedTab === tab
-                        ? "text-white"
-                        : "text-[#77797c] hover:text-[#deddda]"
+                        ? "text-foreground"
+                        : "text-muted hover:text-secondary"
                     }`}
                   >
                     {tab}
                     {feedTab === tab && (
-                      <span className="absolute -bottom-[13px] left-0 right-0 h-px bg-[#ece9e3]" />
+                      <span className="absolute -bottom-[13px] left-0 right-0 h-px bg-accent" />
                     )}
                   </button>
                 ))}
@@ -815,16 +818,16 @@ export default function Home() {
                   <Icon
                     name="search"
                     size={14}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 text-[#737578]"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 text-muted"
                   />
                   <input
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
                     placeholder="Search films, ideas, people"
-                    className="h-7 w-full border-b border-white/10 bg-transparent pl-5 text-[10px] text-white outline-none placeholder:text-[#67696c] focus:border-white/40"
+                    className="h-7 w-full border-b border-border-subtle bg-transparent pl-5 text-[10px] text-foreground outline-none placeholder:text-muted focus:border-accent-hover"
                   />
                 </label>
-                <span className="text-[9px] tracking-[0.14em] text-[#686a6d]">
+                <span className="text-[9px] tracking-[0.14em] text-muted">
                   {filteredPosts.length} NOTES
                 </span>
               </div>
@@ -867,11 +870,11 @@ export default function Home() {
                 ))}
               </div>
             ) : (
-              <div className="border-b border-white/[0.12] py-16 text-center">
-                <p className="font-serif text-2xl text-[#d8d6d2]">
+              <div className="border-b border-border-subtle py-16 text-center">
+                <p className="font-serif text-2xl text-secondary">
                   Nothing in this frame yet.
                 </p>
-                <p className="mt-2 text-xs text-[#85878a]">
+                <p className="mt-2 text-xs text-muted">
                   Try another search or open up a new conversation.
                 </p>
               </div>
@@ -882,21 +885,21 @@ export default function Home() {
         <section
           id="creators"
           aria-labelledby="creators-heading"
-          className="scroll-mt-32 border-y border-white/[0.08] bg-[#111315]"
+          className="scroll-mt-32 border-y border-border-subtle bg-surface"
         >
           <div className="mx-auto max-w-[1240px] px-4 py-20 sm:px-7 sm:py-24 lg:px-10">
             <div className="mb-10 max-w-2xl">
-              <p className="mb-4 text-[9px] tracking-[0.22em] text-[#85878a]">
-                03 <span className="px-2 text-white/30">/</span> PEOPLE BEHIND
+              <p className="mb-4 text-[9px] tracking-[0.22em] text-muted">
+                03 <span className="px-2 text-muted">/</span> PEOPLE BEHIND
                 THE FRAME
               </p>
               <h2
                 id="creators-heading"
-                className="font-serif text-4xl leading-[1.08] tracking-[-0.04em] text-[#f0efec] sm:text-5xl"
+                className="font-serif text-4xl leading-[1.08] tracking-[-0.04em] text-foreground sm:text-5xl"
               >
                 Good work is
                 <br />
-                <span className="italic text-[#a9aaac]">never made alone.</span>
+                <span className="italic text-secondary">never made alone.</span>
               </h2>
             </div>
 
@@ -906,7 +909,7 @@ export default function Home() {
                 return (
                   <article
                     key={creator.name}
-                    className="group relative isolate min-h-[430px] overflow-hidden bg-[#1a1c20] sm:min-h-[500px]"
+                    className="cinematic-surface group relative isolate min-h-[430px] overflow-hidden bg-panel sm:min-h-[500px]"
                   >
                     <CreatorPortrait
                       variant={creator.art}
@@ -914,24 +917,24 @@ export default function Home() {
                       className="absolute inset-0 z-0 h-full w-full transition-transform duration-700 group-hover:scale-[1.025]"
                     />
                     <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/10 to-black/5" />
-                    <div className="absolute left-5 top-5 z-20 text-[9px] tracking-[0.18em] text-white/70">
+                    <div className="absolute left-5 top-5 z-20 text-[9px] tracking-[0.18em] text-inverse-secondary">
                       CREATOR STUDY <span className="px-1">/</span> 001
                     </div>
                     <div className="absolute inset-x-0 bottom-0 z-20 p-6 sm:p-8">
-                      <p className="text-[10px] tracking-[0.16em] text-white/65">
+                      <p className="text-[10px] tracking-[0.16em] text-inverse-secondary">
                         {creator.role.toUpperCase()} · {creator.location.toUpperCase()}
                       </p>
-                      <h3 className="mt-2 font-serif text-3xl text-white sm:text-4xl">
+                      <h3 className="mt-2 font-serif text-3xl text-inverse sm:text-4xl">
                         {creator.name}
                       </h3>
-                      <p className="mt-2 max-w-sm text-xs leading-5 text-white/75">
+                      <p className="mt-2 max-w-sm text-xs leading-5 text-inverse-secondary">
                         {creator.line}
                       </p>
                       <button
                         type="button"
                         aria-pressed={isFollowing}
                         onClick={() => toggleFollow(creator.name)}
-                        className="mt-5 border-b border-white/50 pb-1.5 text-[11px] text-white transition hover:border-white"
+                        className="mt-5 border-b border-border-strong pb-1.5 text-[11px] text-inverse transition hover:border-accent-hover"
                       >
                         {isFollowing
                           ? "Following"
@@ -943,7 +946,7 @@ export default function Home() {
               })}
 
               <div className="flex flex-col justify-center">
-                <p className="mb-2 text-[9px] tracking-[0.18em] text-[#77797c]">
+                <p className="mb-2 text-[9px] tracking-[0.18em] text-muted">
                   PEOPLE TO KNOW
                 </p>
                 {creators.slice(1).map((creator, index) => {
@@ -951,9 +954,9 @@ export default function Home() {
                   return (
                     <article
                       key={creator.name}
-                      className="grid grid-cols-[76px_minmax(0,1fr)] items-center gap-4 border-t border-white/[0.12] py-5 sm:grid-cols-[92px_minmax(0,1fr)_auto] sm:gap-5"
+                      className="grid grid-cols-[76px_minmax(0,1fr)] items-center gap-4 border-t border-border-subtle py-5 sm:grid-cols-[92px_minmax(0,1fr)_auto] sm:gap-5"
                     >
-                      <div className="relative aspect-[4/5] overflow-hidden bg-[#1a1c20]">
+                      <div className="relative aspect-[4/5] overflow-hidden bg-panel">
                         <CreatorPortrait
                           variant={creator.art}
                           name={creator.name}
@@ -961,15 +964,15 @@ export default function Home() {
                         />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-[9px] tracking-[0.14em] text-[#8d8f91]">
+                        <p className="text-[9px] tracking-[0.14em] text-muted">
                           00{index + 2} <span className="px-1">/</span>{" "}
                           {creator.role.toUpperCase()} ·{" "}
                           {creator.location.toUpperCase()}
                         </p>
-                        <h3 className="mt-1 font-serif text-xl text-[#f0efec]">
+                        <h3 className="mt-1 font-serif text-xl text-foreground">
                           {creator.name}
                         </h3>
-                        <p className="mt-1 text-[11px] leading-5 text-[#929497]">
+                        <p className="mt-1 text-[11px] leading-5 text-muted">
                           {creator.line}
                         </p>
                       </div>
@@ -977,14 +980,14 @@ export default function Home() {
                         type="button"
                         aria-pressed={isFollowing}
                         onClick={() => toggleFollow(creator.name)}
-                        className="col-start-2 justify-self-start border-b border-white/25 pb-1 text-[10px] text-[#cfced0] transition hover:border-white sm:col-start-auto sm:justify-self-end"
+                        className="col-start-2 justify-self-start border-b border-border pb-1 text-[10px] text-secondary transition hover:border-accent-hover sm:col-start-auto sm:justify-self-end"
                       >
                         {isFollowing ? "Following" : "Follow"}
                       </button>
                     </article>
                   );
                 })}
-                <p className="mt-5 text-[10px] leading-5 text-[#74767a]">
+                <p className="mt-5 text-[10px] leading-5 text-muted">
                   Directors, editors, writers, and the people who make every
                   frame matter.
                 </p>
@@ -1001,17 +1004,17 @@ export default function Home() {
           <div className="mx-auto max-w-[1240px] px-4 py-20 sm:px-7 sm:py-24 lg:px-10">
             <div className="mb-10 flex flex-wrap items-end justify-between gap-5">
               <div>
-                <p className="mb-4 text-[9px] tracking-[0.22em] text-[#85878a]">
-                  04 <span className="px-2 text-white/30">/</span> LOOK AGAIN
+                <p className="mb-4 text-[9px] tracking-[0.22em] text-muted">
+                  04 <span className="px-2 text-muted">/</span> LOOK AGAIN
                 </p>
                 <h2
                   id="cinema-heading"
-                  className="font-serif text-4xl tracking-[-0.04em] text-[#f0efec] sm:text-5xl"
+                  className="font-serif text-4xl tracking-[-0.04em] text-foreground sm:text-5xl"
                 >
                   Scenes that stay with us.
                 </h2>
               </div>
-              <p className="max-w-xs text-xs leading-5 text-[#929497]">
+              <p className="max-w-xs text-xs leading-5 text-muted">
                 Enter a moment. Notice what others missed. Find the conversation
                 waiting inside it.
               </p>
@@ -1023,7 +1026,7 @@ export default function Home() {
                 onClick={() => exploreScene(scenes[0].search)}
                 className="group text-left"
               >
-                <div className="relative aspect-[1.22] overflow-hidden bg-[#1a1c20] sm:aspect-[1.55]">
+                <div className="cinematic-surface relative aspect-[1.22] overflow-hidden bg-panel sm:aspect-[1.55]">
                   <CinematicImage
                     src={scenes[0].artwork}
                     alt={scenes[0].alt}
@@ -1031,21 +1034,21 @@ export default function Home() {
                     objectPosition="center 60%"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/10" />
-                  <p className="absolute left-5 top-5 text-[9px] tracking-[0.18em] text-white/75">
+                  <p className="absolute left-5 top-5 text-[9px] tracking-[0.18em] text-inverse-secondary">
                     SCENE NOTES <span className="px-1">/</span> 01
                   </p>
-                  <p className="absolute bottom-5 left-5 text-[9px] tracking-[0.18em] text-white/75">
+                  <p className="absolute bottom-5 left-5 text-[9px] tracking-[0.18em] text-inverse-secondary">
                     {scenes[0].film} <span className="px-1">·</span>{" "}
                     {scenes[0].label}
                   </p>
                 </div>
-                <h3 className="mt-5 font-serif text-2xl text-[#f1efeb] transition group-hover:text-white sm:text-3xl">
+                <h3 className="mt-5 font-serif text-2xl text-foreground transition group-hover:text-accent-foreground sm:text-3xl">
                   {scenes[0].title}
                 </h3>
-                <p className="mt-2 max-w-lg text-xs leading-5 text-[#929497]">
+                <p className="mt-2 max-w-lg text-xs leading-5 text-muted">
                   {scenes[0].detail}
                 </p>
-                <span className="mt-4 inline-flex items-center gap-2 text-[10px] text-[#d8d6d2]">
+                <span className="mt-4 inline-flex items-center gap-2 text-[10px] text-secondary">
                   Find the discussion
                   <Icon
                     name="arrow"
@@ -1061,9 +1064,9 @@ export default function Home() {
                     key={scene.title}
                     type="button"
                     onClick={() => exploreScene(scene.search)}
-                    className="group grid grid-cols-[minmax(110px,0.85fr)_minmax(0,1.15fr)] gap-4 border-t border-white/[0.12] py-5 text-left sm:gap-5"
+                    className="group grid grid-cols-[minmax(110px,0.85fr)_minmax(0,1.15fr)] gap-4 border-t border-border-subtle py-5 text-left sm:gap-5"
                   >
-                    <div className="relative aspect-[1.2] overflow-hidden bg-[#1a1c20]">
+                    <div className="relative aspect-[1.2] overflow-hidden bg-panel">
                       <CinematicImage
                         src={scene.artwork}
                         alt={scene.alt}
@@ -1071,23 +1074,23 @@ export default function Home() {
                       />
                     </div>
                     <div className="flex flex-col justify-center">
-                      <p className="text-[8px] tracking-[0.13em] text-[#85878a]">
+                      <p className="text-[8px] tracking-[0.13em] text-muted">
                         0{index + 2} <span className="px-1">/</span> {scene.film}
                       </p>
-                      <h3 className="mt-2 font-serif text-lg leading-tight text-[#eeece8] sm:text-xl">
+                      <h3 className="mt-2 font-serif text-lg leading-tight text-foreground sm:text-xl">
                         {scene.title}
                       </h3>
-                      <p className="mt-2 line-clamp-2 text-[10px] leading-5 text-[#898b8e]">
+                      <p className="mt-2 line-clamp-2 text-[10px] leading-5 text-muted">
                         {scene.detail}
                       </p>
-                      <span className="mt-3 text-[8px] tracking-[0.15em] text-[#77797c]">
+                      <span className="mt-3 text-[8px] tracking-[0.15em] text-muted">
                         {scene.label}
                       </span>
                     </div>
                   </button>
                 ))}
-                <div className="border-t border-white/[0.12] pt-5">
-                  <p className="text-[10px] leading-5 text-[#74767a]">
+                <div className="border-t border-border-subtle pt-5">
+                  <p className="text-[10px] leading-5 text-muted">
                     Original artwork, open interpretations. The images here are
                     visual studies, not frames from the films.
                   </p>
@@ -1100,40 +1103,40 @@ export default function Home() {
         <section
           id="learn"
           aria-labelledby="learn-heading"
-          className="scroll-mt-32 border-y border-white/[0.08] bg-[#111315]"
+          className="scroll-mt-32 border-y border-border-subtle bg-surface"
         >
           <div className="mx-auto max-w-[1240px] px-4 py-20 sm:px-7 sm:py-24 lg:px-10">
-            <div className="grid gap-10 border-b border-white/[0.12] pb-10 md:grid-cols-[1fr_auto] md:items-end">
+            <div className="grid gap-10 border-b border-border-subtle pb-10 md:grid-cols-[1fr_auto] md:items-end">
               <div>
-                <p className="mb-4 text-[9px] tracking-[0.22em] text-[#85878a]">
-                  05 <span className="px-2 text-white/30">/</span> THE CRAFT
+                <p className="mb-4 text-[9px] tracking-[0.22em] text-muted">
+                  05 <span className="px-2 text-muted">/</span> THE CRAFT
                 </p>
                 <h2
                   id="learn-heading"
-                  className="font-serif text-4xl leading-[1.08] tracking-[-0.04em] text-[#f0efec] sm:text-5xl"
+                  className="font-serif text-4xl leading-[1.08] tracking-[-0.04em] text-foreground sm:text-5xl"
                 >
                   Keep looking.
                   <br />
-                  <span className="italic text-[#a9aaac]">Keep making.</span>
+                  <span className="italic text-secondary">Keep making.</span>
                 </h2>
-                <p className="mt-4 max-w-lg text-xs leading-6 text-[#929497]">
+                <p className="mt-4 max-w-lg text-xs leading-6 text-muted">
                   Small, thoughtful paths into the decisions behind a film —
                   built for curious people, not a curriculum checklist.
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-end justify-between gap-5 border-l border-white/20 pl-5 md:min-w-[280px] md:justify-end">
+              <div className="flex flex-wrap items-end justify-between gap-5 border-l border-border pl-5 md:min-w-[280px] md:justify-end">
                 <div>
-                  <p className="text-[9px] tracking-[0.15em] text-[#85878a]">
+                  <p className="text-[9px] tracking-[0.15em] text-muted">
                     BACK IN THE EDIT ROOM
                   </p>
-                  <p className="mt-2 font-serif text-xl text-[#eeece8]">
+                  <p className="mt-2 font-serif text-xl text-foreground">
                     Reading the Frame
                   </p>
-                  <p className="mt-1 text-[10px] text-[#85878a]">
+                  <p className="mt-1 text-[10px] text-muted">
                     Lesson {Math.min(progress + 1, 8)} of 8 · The shape of a shot
                   </p>
-                  <p className="mt-2 text-[9px] text-[#686a6d]">
+                  <p className="mt-2 text-[9px] text-muted">
                     {progress} chapters explored
                   </p>
                 </div>
@@ -1141,7 +1144,7 @@ export default function Home() {
                   type="button"
                   onClick={() => setProgress((current) => Math.min(current + 1, 8))}
                   disabled={progress === 8}
-                  className="group inline-flex items-center gap-2 border-b border-white/35 pb-1.5 text-[10px] text-[#e2e0dc] transition hover:border-white disabled:cursor-default disabled:opacity-55"
+                  className="group inline-flex items-center gap-2 border-b border-border pb-1.5 text-[10px] text-foreground transition hover:border-accent-hover disabled:cursor-default disabled:opacity-55"
                 >
                   {progress === 8 ? "Path complete" : "Continue"}
                   <Icon name={progress === 8 ? "check" : "arrow"} size={14} />
@@ -1155,20 +1158,20 @@ export default function Home() {
                 return (
                   <article
                     key={course.id}
-                    className="grid gap-4 border-b border-white/[0.12] py-5 sm:grid-cols-[84px_minmax(0,1fr)_auto] sm:items-center sm:gap-6"
+                    className="grid gap-4 border-b border-border-subtle py-5 sm:grid-cols-[84px_minmax(0,1fr)_auto] sm:items-center sm:gap-6"
                   >
-                    <div className="relative hidden aspect-[4/3] overflow-hidden bg-[#1a1c20] sm:block">
+                    <div className="relative hidden aspect-[4/3] overflow-hidden bg-panel sm:block">
                       <CinematicImage src={course.artwork} alt="" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[8px] tracking-[0.16em] text-[#85878a]">
+                      <p className="text-[8px] tracking-[0.16em] text-muted">
                         0{index + 1} <span className="px-1">/</span>{" "}
                         {course.category}
                       </p>
-                      <h3 className="mt-1.5 font-serif text-xl text-[#f0efec]">
+                      <h3 className="mt-1.5 font-serif text-xl text-foreground">
                         {course.title}
                       </h3>
-                      <p className="mt-1 text-[10px] text-[#8c8e91]">
+                      <p className="mt-1 text-[10px] text-muted">
                         {course.detail} <span className="px-1">·</span>{" "}
                         {course.lessons} <span className="px-1">·</span>{" "}
                         {course.duration}
@@ -1178,7 +1181,7 @@ export default function Home() {
                       type="button"
                       aria-pressed={isJoined}
                       onClick={() => joinCourse(course.id, course.title)}
-                      className="inline-flex items-center gap-2 justify-self-start text-[10px] text-[#d8d6d2] transition hover:text-white sm:justify-self-end"
+                      className="inline-flex items-center gap-2 justify-self-start text-[10px] text-secondary transition hover:text-accent-foreground sm:justify-self-end"
                     >
                       {isJoined ? (
                         <>
@@ -1205,36 +1208,36 @@ export default function Home() {
           <div className="mx-auto max-w-[1240px] px-4 py-16 sm:px-7 sm:py-20 lg:px-10">
             <div className="grid gap-7 md:grid-cols-[0.8fr_1.2fr]">
               <div>
-                <p className="mb-4 text-[9px] tracking-[0.22em] text-[#85878a]">
+                <p className="mb-4 text-[9px] tracking-[0.22em] text-muted">
                   A PRIVATE NOTEBOOK
                 </p>
                 <h2
                   id="library-heading"
-                  className="font-serif text-3xl tracking-[-0.03em] text-[#f0efec]"
+                  className="font-serif text-3xl tracking-[-0.03em] text-foreground"
                 >
                   Scenes and ideas
                   <br />
-                  <span className="italic text-[#a9aaac]">to return to.</span>
+                  <span className="italic text-secondary">to return to.</span>
                 </h2>
-                <p className="mt-3 max-w-sm text-xs leading-5 text-[#85878a]">
+                <p className="mt-3 max-w-sm text-xs leading-5 text-muted">
                   Save the conversations you want to keep close.
                 </p>
               </div>
-              <div className="border-t border-white/[0.12]">
+              <div className="border-t border-border-subtle">
                 {savedPosts.length ? (
                   posts
                     .filter((post) => savedPosts.includes(post.id))
                     .map((post) => (
                       <div
                         key={post.id}
-                        className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.12] py-4"
+                        className="flex flex-wrap items-center justify-between gap-4 border-b border-border-subtle py-4"
                       >
                         <div>
-                          <p className="text-[8px] tracking-[0.16em] text-[#85878a]">
+                          <p className="text-[8px] tracking-[0.16em] text-muted">
                             {post.topic} <span className="px-1">/</span>{" "}
                             {post.name}
                           </p>
-                          <p className="mt-1 font-serif text-lg text-[#e9e7e3]">
+                          <p className="mt-1 font-serif text-lg text-foreground">
                             {post.title}
                           </p>
                         </div>
@@ -1244,14 +1247,14 @@ export default function Home() {
                           onClick={() =>
                             toggleNumber(post.id, savedPosts, setSavedPosts)
                           }
-                          className="text-[10px] text-[#85878a] transition hover:text-white"
+                          className="text-[10px] text-muted transition hover:text-accent-foreground"
                         >
                           Remove
                         </button>
                       </div>
                     ))
                 ) : (
-                  <p className="py-5 text-xs text-[#85878a]">
+                  <p className="py-5 text-xs text-muted">
                     Nothing saved just yet. Bookmark a post that stays with you.
                   </p>
                 )}
@@ -1261,17 +1264,17 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-white/[0.1]">
+      <footer className="border-t border-border-subtle">
         <div className="mx-auto flex max-w-[1240px] flex-wrap items-end justify-between gap-5 px-4 py-8 sm:px-7 lg:px-10">
           <div>
-            <p className="font-serif text-2xl tracking-[0.08em] text-[#f2f0eb]">
+            <p className="font-serif text-2xl tracking-[0.08em] text-foreground">
               FELLAS
             </p>
-            <p className="mt-1 text-[9px] tracking-[0.14em] text-[#85878a]">
+            <p className="mt-1 text-[9px] tracking-[0.14em] text-muted">
               Where Cinema People Belong.
             </p>
           </div>
-          <p className="text-[9px] tracking-[0.16em] text-[#737578]">
+          <p className="text-[9px] tracking-[0.16em] text-muted">
             MEET. CREATE. COLLABORATE.
           </p>
         </div>
@@ -1288,16 +1291,16 @@ export default function Home() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="composer-heading"
-            className="w-full max-w-lg border border-white/15 bg-[#111315] p-5 shadow-2xl sm:p-7"
+            className="w-full max-w-lg border border-border bg-surface p-5 shadow-2xl sm:p-7"
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-[9px] tracking-[0.2em] text-[#898b8e]">
+                <p className="text-[9px] tracking-[0.2em] text-muted">
                   YOUR NOTEBOOK, OPEN
                 </p>
                 <h2
                   id="composer-heading"
-                  className="mt-2 font-serif text-2xl text-[#f0efed]"
+                  className="mt-2 font-serif text-2xl text-foreground"
                 >
                   Share a thought
                 </h2>
@@ -1306,7 +1309,7 @@ export default function Home() {
                 type="button"
                 aria-label="Close composer"
                 onClick={() => setComposerOpen(false)}
-                className="p-2 text-[#8a8c8f] hover:text-white"
+                className="p-2 text-muted hover:text-accent-foreground"
               >
                 <Icon name="close" size={17} />
               </button>
@@ -1323,20 +1326,20 @@ export default function Home() {
                 maxLength={500}
                 rows={5}
                 placeholder="A scene you can’t stop thinking about, a question from set, something you learned..."
-                className="mt-5 w-full resize-none border border-white/[0.12] bg-[#0b0c0e] p-4 text-sm leading-6 text-white outline-none placeholder:text-[#686a6d] focus:border-white/45"
+                className="mt-5 w-full resize-none border border-border-subtle bg-background p-4 text-sm leading-6 text-foreground outline-none placeholder:text-muted focus:border-accent-hover"
               />
               <div className="mt-3 flex items-center justify-between gap-4">
-                <p className="text-[10px] text-[#77797c]">
+                <p className="text-[10px] text-muted">
                   Good conversations start with curiosity.
                 </p>
-                <span className="text-[10px] text-[#77797c]">
+                <span className="text-[10px] text-muted">
                   {draft.length}/500
                 </span>
               </div>
               <button
                 type="submit"
                 disabled={!draft.trim()}
-                className="mt-5 inline-flex items-center gap-2 border-b border-white/50 pb-2 text-xs text-white transition hover:border-white disabled:cursor-not-allowed disabled:opacity-40"
+                className="mt-5 inline-flex items-center gap-2 border-b border-border-strong pb-2 text-xs text-foreground transition hover:border-accent-hover disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Share with the community <Icon name="arrow" size={14} />
               </button>
@@ -1348,14 +1351,14 @@ export default function Home() {
       {notice && (
         <div
           role="status"
-          className="fixed bottom-5 right-5 z-[60] flex max-w-[calc(100vw-2.5rem)] items-center gap-3 border border-white/15 bg-[#16181a] px-4 py-3 text-xs text-[#e7e2d9] shadow-xl"
+          className="fixed bottom-5 right-5 z-[60] flex max-w-[calc(100vw-2.5rem)] items-center gap-3 border border-border bg-panel px-4 py-3 text-xs text-foreground shadow-xl"
         >
           {notice}
           <button
             type="button"
             aria-label="Dismiss notification"
             onClick={() => setNotice("")}
-            className="ml-1 p-1 text-[#85878a] hover:text-white"
+            className="ml-1 p-1 text-muted hover:text-accent-foreground"
           >
             <Icon name="close" size={14} />
           </button>
