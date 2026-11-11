@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="960" y1="0" x2="960" y2="920" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#080A0F"/>
+      <stop offset=".52" stop-color="#171B22"/>
+      <stop offset="1" stop-color="#24272A"/>
+    </linearGradient>
+    <radialGradient id="nebula" cx="0" cy="0" r="1" gradientTransform="matrix(670 235 -420 1197 1288 333)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A8B1BC" stop-opacity=".36"/>
+      <stop offset=".42" stop-color="#67717E" stop-opacity=".13"/>
+      <stop offset="1" stop-color="#30353D" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="horizon" x1="970" y1="653" x2="970" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A5ABB2" stop-opacity=".72"/>
+      <stop offset=".18" stop-color="#555D66" stop-opacity=".55"/>
+      <stop offset=".54" stop-color="#202328"/>
+      <stop offset="1" stop-color="#090A0D"/>
+    </linearGradient>
+    <linearGradient id="portal" x1="1323" y1="338" x2="1578" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E0E2E3" stop-opacity=".52"/>
+      <stop offset=".46" stop-color="#8E969F" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#111318" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="reflection" cx="0" cy="0" r="1" gradientTransform="matrix(0 365 -780 0 1449 726)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#CCD0D3" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#BFC6CC" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="540" y="130" width="1160" height="825" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="64"/>
+    </filter>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h1920v1080H0z"/>
+  <path fill="url(#nebula)" d="M0 0h1920v1080H0z"/>
+  <g fill="#E4E8EB">
+    <circle cx="206" cy="184" r="1.5" opacity=".66"/>
+    <circle cx="362" cy="327" r="1" opacity=".48"/>
+    <circle cx="536" cy="143" r="1.4" opacity=".7"/>
+    <circle cx="682" cy="258" r="1" opacity=".52"/>
+    <circle cx="845" cy="112" r="1.2" opacity=".61"/>
+    <circle cx="1034" cy="209" r="1" opacity=".68"/>
+    <circle cx="1152" cy="118" r="1.5" opacity=".48"/>
+    <circle cx="1408" cy="177" r="1" opacity=".74"/>
+    <circle cx="1594" cy="110" r="1.4" opacity=".53"/>
+    <circle cx="1776" cy="286" r="1" opacity=".65"/>
+    <circle cx="188" cy="467" r="1.2" opacity=".52"/>
+    <circle cx="458" cy="405" r="1" opacity=".74"/>
+    <circle cx="730" cy="488" r="1.4" opacity=".44"/>
+    <circle cx="1051" cy="389" r="1" opacity=".7"/>
+    <circle cx="1710" cy="431" r="1.2" opacity=".58"/>
+    <circle cx="1845" cy="570" r="1" opacity=".68"/>
+  </g>
+  <g filter="url(#soft)" opacity=".34">
+    <ellipse cx="1361" cy="458" fill="#AEB7C0" rx="350" ry="104"/>
+    <ellipse cx="1070" cy="541" fill="#747E89" rx="248" ry="75"/>
+  </g>
+  <path fill="url(#portal)" d="M1224 300h322v477h-322z"/>
+  <path stroke="#D3D7DA" stroke-opacity=".44" stroke-width="2" d="M1224 777V320a20 20 0 0 1 20-20h282a20 20 0 0 1 20 20v457"/>
+  <path stroke="#EFF1F2" stroke-opacity=".14" d="M1247 777V335a15 15 0 0 1 15-15h246a15 15 0 0 1 15 15v442"/>
+  <path fill="#C5C9CD" fill-opacity=".08" d="M0 728c176-54 272-45 428-6 166 42 309 30 462-27 192-71 315-66 486-14 189 57 354 61 544-9v408H0V728Z"/>
+  <path fill="url(#horizon)" d="M0 698c161-73 306-67 448-23 169 53 302 43 471-10 188-60 328-62 500-7 189 60 337 56 501-8v430H0V698Z"/>
+  <path fill="#0B0D11" d="M0 827c237-66 377-47 532-12 157 35 301 11 457-33 198-56 350-33 485 13 145 50 294 44 446-2v287H0V827Z"/>
+  <path fill="url(#reflection)" d="M1250 755h396l244 325h-870l230-325Z"/>
+  <path stroke="#E1E4E6" stroke-opacity=".19" d="M1191 845h542M1254 884h413M1313 926h300M1374 969h191"/>
+  <path fill="#090A0D" d="M1398 788c0-20 11-36 25-36s25 16 25 36v80h-50v-80Z"/>
+  <path fill="#090A0D" d="M1386 862c7-23 22-35 37-35s30 12 37 35l18 73h-110l18-73Z"/>
+  <path stroke="#D7DBDE" stroke-opacity=".24" stroke-width="2" d="M0 696c161-73 306-67 448-23 169 53 302 43 471-10 188-60 328-62 500-7 189 60 337 56 501-8"/>
+</svg>

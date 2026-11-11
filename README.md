@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FELLAS
 
-## Getting Started
+**Where Cinema People Belong.**
 
-First, run the development server:
+Meet. Create. Collaborate. FELLAS is a home for filmmakers, film students,
+and cinema enthusiasts to learn, share ideas, and make things together.
+
+## Run locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` — start the development server
+- `npm run lint` — run ESLint
+- `npm run build` — create a production build
+- `npm run start` — serve the production build
 
-## Learn More
+FELLAS is built with Next.js, React, TypeScript, and Tailwind CSS.
 
-To learn more about Next.js, take a look at the following resources:
+## Supabase connection
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in
+`.env.local` at the project root. Use a Supabase publishable key (`sb_publishable_…`);
+never put a secret or service-role key in a `NEXT_PUBLIC_` variable. `.env.local`
+is ignored by Git.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The browser and server clients are available from `lib/supabase/client.ts` and
+`lib/supabase/server.ts`. Next.js 16's root `proxy.ts` refreshes auth cookies.
+After configuring the environment, request `/api/supabase/health` to check the
+Supabase Auth endpoint. It performs no database reads or writes and returns only
+a generic connection status.
 
-## Deploy on Vercel
+## TMDB movie discovery
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Set `TMDB_API_READ_ACCESS_TOKEN` in the app-root `.env.local` file. This token is
+read only by the server-side TMDB utility and must not use a `NEXT_PUBLIC_`
+variable. If it is missing or rejected, movie discovery shows an explicit
+configuration error rather than sample titles.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The homepage movie section uses the `/api/movies/discover`,
+`/api/movies/search`, and `/api/movies/recommendations` route handlers. Its
+recommendation rail is based on the first trending film, not personalized user
+preferences. Movie and person pages fetch TMDB data on the server at
+`/movies/[id]` and `/people/[id]`. TMDB responses are runtime validated and
+cached by endpoint; title searches and movie rails are paginated. Image URLs
+use TMDB's poster, backdrop, and profile size paths.
+
+Advanced filters are not enabled yet. TMDB Discover can directly filter by
+genres, cast/crew/person IDs, original language, country, release-date ranges,
+and keyword IDs. TMDB supports comma-separated AND and pipe-separated OR for
+supported multi-value parameters. Role-specific matches for several directors,
+screenwriters, cinematographers, editors, or composers require retrieving movie
+credits because the API does not expose a distinct filter for every crew job.
+Arbitrary nested AND/OR groups across genres, people, roles, and keywords will
+need server-side filtering and merging. The homepage only previews planned
+filter dimensions; no filter controls are active yet.
